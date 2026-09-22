@@ -1,0 +1,36 @@
+{
+  "name": "videowall-publisher",
+  "version": "1.0.0",
+  "description": "Emisor de pantalla para videowall",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^44.0.0",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "com.videowall.publisher",
+    "productName": "Videowall Publisher",
+    "files": [
+      "**/*",
+      "!config.json"
+    ],
+    "extraFiles": [
+      {
+        "from": "config.json",
+        "to": "config.json"
+      }
+    ],
+    "win": {
+      "target": "portable",
+      "icon": "icon.ico"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "icon.png"
+    }
+  }
+}

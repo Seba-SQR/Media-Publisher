@@ -1,0 +1,4 @@
+body { font-family: sans-serif; background: #222; color: #fff; padding: 20px; }
+button { padding: 10px 20px; font-size: 16px; cursor: pointer; background: #06b6d4; border: none; color: white; border-radius: 5px; }
+button:disabled { background: #555; }
+#status { margin-top: 10px; color: #a1a1aa; }

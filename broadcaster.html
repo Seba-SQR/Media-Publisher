@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' http: https:; style-src 'self' 'unsafe-inline'; connect-src 'self' http: https: ws: wss:;">
+    <title>NETVideowall - Broadcaster</title>
+    <link rel="stylesheet" href="broadcaster.css">
+</head>
+<body>
+    <h2>Emisor del Video Wall</h2>
+    
+    <label for="screenSelect">Fuente a compartir:</label>
+    <select id="screenSelect" style="width: 100%; margin: 10px 0; padding: 5px;"></select>
+
+    <div style="display: flex; gap: 10px;">
+        <button id="startBtn">Iniciar Transmisión</button>
+        <button id="stopBtn" disabled style="background: #ef4444;">Detener Transmisión</button>
+    </div>
+
+    <div id="status">Estado: Esperando interacción...</div>
+    <script type="module" src="broadcaster.js"></script>
+</body>
+</html>
