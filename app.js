@@ -13,7 +13,7 @@ function loadRemotePublisherScript(url) {
         const script = document.createElement('script');
         script.src = url;
         script.onload = () => resolve();
-        script.onerror = () => reject(new Error(`No se pudo cargar publisher.js desde ${url}`));
+        script.onerror = () => reject(new Error(`Failed to load publisher.js from ${url}`));
         document.head.appendChild(script);
     });
 }
@@ -24,17 +24,17 @@ async function init() {
 
         const publisherUrl = `http://${config.mediaMtxServer}:${config.mediaMtxPort}/${config.mediaMtxPath}/publisher.js`;
         
-        statusDiv.innerText = "Descargando cliente WebRTC de MediaMTX...";
+        statusDiv.innerText = "Downloading MediaMTX WebRTC client...";
         await loadRemotePublisherScript(publisherUrl);
 
-        statusDiv.innerText = "Estado: Listo para transmitir.";
-        startBtn.innerText = "Iniciar Transmisión";
+        statusDiv.innerText = "Status: Ready to publish.";
+        startBtn.innerText = "Start Publishing";
         startBtn.disabled = false;
 
         await loadSources();
     } catch (err) {
-        console.error("Error en la inicialización:", err);
-        statusDiv.innerText = `Error al conectar con MediaMTX: ${err.message}`;
+        console.error("Initialization error:", err);
+        statusDiv.innerText = `Error connecting to MediaMTX: ${err.message}`;
     }
 }
 
@@ -49,7 +49,7 @@ async function loadSources() {
     });
 }
 
-function stopTransmission(customStatus = "Transmisión detenida.") {
+function stopPublishing(customStatus = "Publishing stopped.") {
     if (localStream) {
         localStream.getTracks().forEach(track => track.stop());
         localStream = null;
@@ -80,12 +80,12 @@ startBtn.onclick = async () => {
             }
         });
 
-        statusDiv.innerText = "Conectando al servidor...";
+        statusDiv.innerText = "Connecting to MediaMTX...";
         startBtn.disabled = true;
         stopBtn.disabled = false;
         screenSelect.disabled = true;
 
-        localStream.getVideoTracks()[0].onended = () => stopTransmission();
+        localStream.getVideoTracks()[0].onended = () => stopPublishing();
 
         const whipUrl = `http://${config.mediaMtxServer}:${config.mediaMtxPort}/${config.mediaMtxPath}/whip`;
 
@@ -97,20 +97,20 @@ startBtn.onclick = async () => {
             videoCodec: 'h264',
             videoBitrate: 0,
             onConnected: () => {
-                statusDiv.innerText = `Transmitiendo hacia "${config.videowallId || 'VideoWall'}"`;
+                statusDiv.innerText = "Publishing to MediaMTX.";
             },
             onError: (err) => {
-                console.error("Error detallado de MediaMTX:", err);
-                stopTransmission(`Error al conectar con MediaMTX: ${err}`);
+                console.error("MediaMTX error:", err);
+                stopPublishing(`Error connecting to MediaMTX: ${err}`);
             }
         });
 
     } catch (err) {
-        console.error("Error al iniciar captura:", err);
-        stopTransmission(`Error al capturar pantalla: ${err.message}`);
+        console.error("Capture error:", err);
+        stopPublishing(`Error capturing screen: ${err.message}`);
     }
 };
 
-stopBtn.onclick = stopTransmission;
+stopBtn.onclick = stopPublishing;
 
 init();

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' http: https:; style-src 'self' 'unsafe-inline'; connect-src 'self' http: https: ws: wss:;">
+    <title>Media Publisher</title>
+    <link rel="stylesheet" href="app.css">
+</head>
+<body>
+    <h2>Media Publisher</h2>
+    
+    <label for="screenSelect">Source to share:</label>
+    <select id="screenSelect" style="width: 100%; margin: 10px 0; padding: 5px;"></select>
+
+    <div style="display: flex; gap: 10px;">
+        <button id="startBtn">Start Publishing</button>
+        <button id="stopBtn" disabled style="background: #ef4444;">Stop Publishing</button>
+    </div>
+
+    <div id="status">Status: Waiting for interaction...</div>
+    <script type="module" src="app.js"></script>
+</body>
+</html>

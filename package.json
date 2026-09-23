@@ -1,7 +1,7 @@
 {
-  "name": "videowall-publisher",
+  "name": "media-publisher",
   "version": "1.0.0",
-  "description": "Emisor de pantalla para videowall",
+  "description": "Screen publisher for MediaMTX",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -12,8 +12,8 @@
     "electron-builder": "^26.15.3"
   },
   "build": {
-    "appId": "com.videowall.publisher",
-    "productName": "Videowall Publisher",
+    "appId": "com.media-publisher.app",
+    "productName": "Media Publisher",
     "files": [
       "**/*",
       "!config.json"
@@ -26,11 +26,11 @@
     ],
     "win": {
       "target": "portable",
-      "icon": "icon.ico"
+      "icon": "assets/icons/icon.ico"
     },
     "linux": {
       "target": "AppImage",
-      "icon": "icon.png"
+      "icon": "assets/icons/icon.png"
     }
   }
 }
